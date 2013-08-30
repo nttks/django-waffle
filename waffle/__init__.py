@@ -51,6 +51,7 @@ def get_flags(request):
     for flag in Flag.objects.iterator():
         if flag_is_active(request, flag):
             active_flags.append(flag.name)
+    return active_flags
 
 def flag_is_active(request, flag_name):
     flag = cache.get(keyfmt(FLAG_CACHE_KEY, flag_name))
