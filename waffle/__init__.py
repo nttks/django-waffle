@@ -47,7 +47,10 @@ def set_flag(request, flag_name, active=True, session_only=False):
 
 def get_flags():
     """Return a list of all created flags."""
-    return Flag.objects
+    active_flags = []
+    for flag in Flag.objects.iterator():
+        if flag_is_active(flag):
+            active_flags.append(flag.name)
 
 def flag_is_active(request, flag_name):
     flag = cache.get(keyfmt(FLAG_CACHE_KEY, flag_name))
