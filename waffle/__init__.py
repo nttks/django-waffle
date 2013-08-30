@@ -45,11 +45,11 @@ def set_flag(request, flag_name, active=True, session_only=False):
         request.waffles = {}
     request.waffles[flag_name] = [active, session_only]
 
-def get_flags():
+def get_flags(request):
     """Return a list of all created flags."""
     active_flags = []
     for flag in Flag.objects.iterator():
-        if flag_is_active(flag):
+        if flag_is_active(request, flag):
             active_flags.append(flag.name)
 
 def flag_is_active(request, flag_name):
